@@ -69,7 +69,7 @@ local function section(list, y, title, total, charts, first, faded)
     local shape = ui.bar(list.rows, NAME .. "-row", { -y * SLOPE, -y }, { w, ROW }, C.faint)
     if faded then shape.gameObject:AddComponent(UE.CanvasGroup).alpha = 0.45 end
     local row, x = shape.transform, ART + 104
-    ui.cover(row, NAME .. "-cover", { 0, ROW }, { ART, ROW }, chart.id)
+    ui.cover(row, NAME .. "-cover", { 0, ROW }, { ART, ROW }, chart.id, chart.level)
     V.text(row, { x - 20, ROW / 2 }, 28, tostring(first + i - 1), C.dim, 5, { 1, 0.5 }) -- MiddleRight
     V.text(row, { x, 66 }, 34, chart.name, C.white, 3, nil, w - x - 190)
     V.text(row, { w - 44, 64 }, 38, ("%.3f"):format(chart.rks), ink(chart), 5, { 1, 0.5 })
@@ -120,7 +120,7 @@ end
 -- a card of the grid from its top left corner: the cover under the chart's place and level, its texts in a band
 local function card(sheet, pos, chart, place, phi)
   local w, h = CARD[1], CARD[2]
-  local art = ui.cover(sheet, NAME .. "-card", pos, CARD, chart.id).transform
+  local art = ui.cover(sheet, NAME .. "-card", pos, CARD, chart.id, chart.level).transform
   V.plate(art, { 0, h }, { 64, 32 }, phi and C.gold or SHADE, 22, place, phi and C.dark or C.white)
   V.plate(art, { w - 108, h }, { 108, 32 }, C[chart.level], 22, ("%s %.1f"):format(chart.level, chart.constant))
   local band = ui.bar(art, NAME .. "-band", { -(h - BAND) * SLOPE, BAND }, { w, BAND }, SHADE).transform
